@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ioAppSender
+  profiles: dev, devcom, test, testswarm
+  cloud:
+    config:
+      #uri:
+
+
+      uri: ${CONFIG_URI}
+      env: default
+      label: master
+      password: mirko
+      username: mirko

@@ -1,0 +1,82 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: Test
+  application:
+    name: opvTest
+  jpa:
+    database: h2
+    #database: postgresql
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      #ddl-auto: create
+      ddl-auto: create-drop
+
+
+    properties:
+      hibernate:
+        hbm2ddl:
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    #url: jdbc:h2:file:/tmp/h2/ioTrentino;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:./target/db/opv;AUTO_SERVER=TRUE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    continue-on-error: false
+
+  mail:
+    host: relay.infotn.it
+    port: 25
+    username:
+    password:
+
+  h2:
+    console:
+      enabled: true
+  rabbitmq:
+    host: 51.137.206.83
+    port: 5672
+    username: tndigit
+    password: tndigit-ioItalia
+
+
+server:
+  ioitalia:
+    tocken-standard:
+  origin:
+    auth: http://localhost:8182/auth
+
+
+iot:
+  cron:
+    fixedDelay: 60000
+    enable: false
+  crypt:
+    secretKey: ICmpuCr4PGYJ2nsKqp3y
+    salt: RrPdwdiAsDAOqJdDHSO7
+
+jwt:
+  header: Authorization
+
+application:
+  io-app:
+    rabbitmq:
+      exchange: ioapp.exchange
+      queue: ioapp.queue
+      routingkey: ioapp.routingkey
+
+management:
+  health:
+    db:
+      enabled: false

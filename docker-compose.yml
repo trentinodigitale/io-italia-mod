@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    image: httpd
+    ports:
+    - "8281:8281"
+
+  db:
+    image: postresql
+    ports:
+    - 5432:5432
