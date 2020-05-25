@@ -3,6 +3,7 @@ package it.tndigit.iot.web.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import it.tndigit.iot.exception.IotException;
 import it.tndigit.iot.service.MessageServiceSend;
 import it.tndigit.iot.service.dto.message.MessageDTO;
 import it.tndigit.iot.web.rest.utils.HeaderUtil;
@@ -11,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
+import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.NotAcceptableException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -77,11 +81,18 @@ public class MessageResource extends AbstractResource {
         if (codiceIdentificativo ==null || codiceFiscale == null ||codiceFiscale.isEmpty() ){
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
+        Optional< MessageDTO > messageDTO;
+        try{
+             messageDTO = messageService.getMessage(codiceIdentificativo,codiceFiscale);
+            if (messageDTO.isPresent())
+                return new ResponseEntity<>(messageDTO.get(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (IotException ex) {
+            messageDTO = Optional.of(new MessageDTO());
+            messageDTO.get().setErroreImprevisto(ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(messageDTO.get());
+        }
 
-        Optional< MessageDTO > messageDTO = messageService.getMessage(codiceIdentificativo,codiceFiscale);
-        if (messageDTO.isPresent())
-            return new ResponseEntity<>(messageDTO.get(), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 

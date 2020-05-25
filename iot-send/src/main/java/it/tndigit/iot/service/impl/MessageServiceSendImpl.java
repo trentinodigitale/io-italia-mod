@@ -11,6 +11,7 @@ import it.tndigit.iot.service.dto.ServizioDTO;
 import it.tndigit.iot.service.dto.message.MessageDTO;
 import it.tndigit.iot.service.mapper.MessageMapper;
 import it.tndigit.iot.service.mapper.ServizioMapper;
+import it.tndigit.iot.utils.MessageBundleBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.persistence.EntityManager;
+import javax.ws.rs.ForbiddenException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -48,6 +50,9 @@ MessageServiceSendImpl implements MessageServiceSend {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    MessageBundleBuilder messageSource;
 
 
     @Autowired
@@ -102,9 +107,7 @@ MessageServiceSendImpl implements MessageServiceSend {
 
     @Override
     public Optional< MessageDTO > getMessage(Long idObj, String codiceFiscale) {
-
        Optional< MessagePO > messagePO = messageRepository.findByIdObjAndAndCodiceFiscale(idObj,codiceFiscale);
-
         if (messagePO.isPresent()){
             MessageDTO messageDTO = messageMapper.toDto(messagePO.get());
             return Optional.of(messageDTO);
@@ -119,8 +122,17 @@ MessageServiceSendImpl implements MessageServiceSend {
         Optional< MessagePO > messagePO = messageRepository.findByCodiceIdentificativoAndCodiceFiscale(codiceIdentificativo,codiceFiscale);
 
         if (messagePO.isPresent()){
-            MessageDTO messageDTO = messageMapper.toDto(messagePO.get());
-            return Optional.of(messageDTO);
+            //Se il messaggio è presente controllo che la richiesta sia stata effettuata dall'ente corretto
+
+            if (UtilityIot.getUserName().equals(messagePO.get().getServizioPO().getCodiceIdentificativo())){
+                MessageDTO messageDTO = messageMapper.toDto(messagePO.get());
+                return Optional.of(messageDTO);
+            }else {
+
+                throw  new IotException(messageSource.getMessage("message.get.servizioErrato"));
+            }
+
+
         }
 
         return Optional.empty();

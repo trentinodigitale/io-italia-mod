@@ -1,6 +1,8 @@
 package it.tndigit.iot.web.utils.rest;
 
 import it.tndigit.iot.service.MessageServiceSend;
+import it.tndigit.iot.service.ServizioService;
+import it.tndigit.iot.utils.MessageBundleBuilder;
 import it.tndigit.iot.web.rest.MessageResource;
 import it.tndigit.iot.web.validator.MessageValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -28,12 +31,19 @@ public class MessageResourceGETTest extends AbstractResourceTest{
     @Autowired
     MessageValidator messageValidator;
 
+    @Autowired
+    ServizioService servizioService;
+
+    @Autowired
+    MessageBundleBuilder messageBundleBuilder;
 
     @Autowired
     MessageServiceSend messageService;
 
     MockMvc restMessageMockMvc;
-
+//
+//    @MockBean
+//    UtilityIot utilityIot;
 
 
     @BeforeEach
@@ -48,25 +58,26 @@ public class MessageResourceGETTest extends AbstractResourceTest{
     }
 
 
-
-//    @Test
-//    @Sql(scripts = {"/script/insertServizio.sql","/script/insertMessage.sql"})
-//    void getMessageIdObj() throws Exception{
-//        restMessageMockMvc.perform(get("/api/v1/message/{codice}/{codiceFiscale}", 2L,"AAAAAA11A11A111A"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-//                .andExpect(jsonPath("$.codiceIdentificativo").value("ÒLJASFKLA"));
-//
-//    }
-
-
     @Test
     @Sql(scripts = {"/script/insertServizio.sql","/script/insertMessage.sql"})
+    @WithMockUser(username = "ÒLJASFKLA", password = "", roles = "USER")
     void getMessageCodice() throws Exception{
         restMessageMockMvc.perform(get("/api/v1/message/{codiceIdentificativo}/{codiceFiscale}", "dv41f5av54d64sdva6","AAAAAA11A11A111A"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.codiceIdentificativo").value("dv41f5av54d64sdva6"));
+    }
+
+
+
+    @Test
+    @Sql(scripts = {"/script/insertServizio.sql","/script/insertMessage.sql"})
+    @WithMockUser(username = "AAAAAA", password = "", roles = "USER")
+    void getMessageCodiceException() throws Exception{
+        restMessageMockMvc.perform(get("/api/v1/message/{codiceIdentificativo}/{codiceFiscale}", "dv41f5av54d64sdva6","AAAAAA11A11A111A"))
+                .andExpect(status().isNotAcceptable())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.erroreImprevisto").value(messageBundleBuilder.getMessage("message.get.servizioErrato")));
 
 
 
