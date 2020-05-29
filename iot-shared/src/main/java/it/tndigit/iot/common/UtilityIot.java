@@ -46,7 +46,7 @@ public class UtilityIot {
 				JwtUser user = (JwtUser) authentication.getPrincipal();
 				return user.getUsername();
 			} else {
-				return (String) authentication.getPrincipal();
+				return authentication.getName();
 			}
 
 		} catch (Exception e) {

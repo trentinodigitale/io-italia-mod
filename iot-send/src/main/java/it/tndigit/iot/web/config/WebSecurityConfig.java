@@ -1,40 +1,40 @@
 package it.tndigit.iot.web.config;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
-
+import it.tndigit.iot.domain.ServizioPO;
+import it.tndigit.iot.repository.ServizioRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtClaimNames;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtValidators;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import it.tndigit.iot.domain.ServizioPO;
-import it.tndigit.iot.repository.ServizioRepository;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Optional;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableOAuth2Client
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Value("${spring.security.oauth2.resourceserver.id}") 
@@ -110,6 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     		// check service is present
             Optional<ServizioPO> servizioPOOptional = servizioRepository.findAllByCodiceIdentificativo(clientId);
             if (!servizioPOOptional.isPresent()) {
+                log.error("Servizio NON registrato nella base dati");
     			return OAuth2TokenValidatorResult.failure(serviceError);
             }
             return OAuth2TokenValidatorResult.success();

@@ -1,11 +1,30 @@
 version: '3'
 services:
+
+  config-server:
+    image: tndigitdocker/config-server:latest
+    build:
+      dockerfile:
+
+  iot-rec:
+    image: tndigitdocker/iot-rec:latest
+    build:
+      dockerfile:
+    environment:
+      CONFIG_URI=http://40.113.23.130:18888
+    ports:
+    - 8281:8281
+
   web:
     image: httpd
     ports:
     - "8281:8281"
 
+
+
   db:
     image: postresql
     ports:
     - 5432:5432
+
+
