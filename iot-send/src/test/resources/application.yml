@@ -20,6 +20,13 @@ spring:
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
 
 
+  security:
+    oauth2:
+      resourceserver:
+        id: ${RESOURCESERVER_ID:iotrentino}
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it/aac}
+          jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/aac/jwk}
 
   main:
     allow-bean-definition-overriding: true
