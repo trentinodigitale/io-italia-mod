@@ -33,12 +33,12 @@ public class ServizioServiceImpl implements ServizioService {
 
         try{
             ServizioPO servizioPO = enteMapper.toEntity(enteDTO);
-            if (servizioPO.getIdObj()==null && (enteDTO.getCodiceIdentificativo()==null || enteDTO.getCodiceIdentificativo().isEmpty())){
-                String digestString = enteDTO.getNomeServizio() + LocalDate.now().toString();
-
-                servizioPO.setCodiceIdentificativo(getCodIdentificativo(digestString)) ;
-
-            }
+//            if (servizioPO.getIdObj()==null && (enteDTO.getCodiceIdentificativo()==null || enteDTO.getCodiceIdentificativo().isEmpty())){
+//                String digestString = enteDTO.getNomeServizio() + LocalDate.now().toString();
+//
+//                servizioPO.setCodiceIdentificativo(getCodIdentificativo(digestString)) ;
+//
+//            }
             servizioPO = servizioRepository.saveAndFlush(servizioPO);
             return enteMapper.toDto(servizioPO);
         }catch (DataIntegrityViolationException diEx){
@@ -70,6 +70,26 @@ public class ServizioServiceImpl implements ServizioService {
         return Optional.empty();
     }
 
+
+
+    /**
+     * Get one Ente by id.
+     *
+     * @param id the id of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ServizioDTO> findOne(String codIdentificativo) {
+        Optional< ServizioPO > entePO = servizioRepository.findAllByCodiceIdentificativo(codIdentificativo);
+
+        if (entePO.isPresent()){
+            ServizioDTO enteDTO = enteMapper.toDto(entePO.get());
+            return Optional.of(enteDTO);
+        }
+        return Optional.empty();
+    }
+
     @Override
     public void delete(Long id) {
         servizioRepository.deleteById(id);
@@ -77,7 +97,7 @@ public class ServizioServiceImpl implements ServizioService {
 
 
 
-    protected String getCodIdentificativo (String valore ){
-        return DigestUtils.md5DigestAsHex(valore.getBytes());
-    }
+//    protected String getCodIdentificativo (String valore ){
+//        return DigestUtils.md5DigestAsHex(valore.getBytes());
+//    }
 }

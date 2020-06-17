@@ -25,6 +25,15 @@ public interface ServizioService {
     Optional< ServizioDTO > findOne(Long id);
 
     /**
+     * Get the "id" ente.
+     *
+     * @param id the id of the entity
+     * @return the entity
+     */
+    Optional< ServizioDTO > findOne(String id);
+
+
+    /**
      * Delete the "id" ente.
      *
      * @param id the id of the entity

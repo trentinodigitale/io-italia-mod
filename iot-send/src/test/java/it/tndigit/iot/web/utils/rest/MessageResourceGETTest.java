@@ -60,7 +60,7 @@ public class MessageResourceGETTest extends AbstractResourceTest{
 
     @Test
     @Sql(scripts = {"/script/insertServizio.sql","/script/insertMessage.sql"})
-    @WithMockUser(username = "ÒLJASFKLA", password = "", roles = "USER")
+    @WithMockUser(username = "asdfkljuoerqewuronr", password = "", roles = "USER")
     void getMessageCodice() throws Exception{
         restMessageMockMvc.perform(get("/api/v1/message/{codiceIdentificativo}/{codiceFiscale}", "dv41f5av54d64sdva6","AAAAAA11A11A111A"))
                 .andExpect(status().isOk())

@@ -19,11 +19,21 @@ class ServizioServiceImplTest {
     @Autowired
     ServizioServiceImpl servizioService;
 
-    @Test
-    void getCodIdentificativo() {
-
-        String valore = "String di prova per test" + LocalDate.now();
-        Assertions.assertNotNull(servizioService.getCodIdentificativo(valore));
-
-    }
+//    @Test
+//    void getCodIdentificativo() {
+//
+//        String valore = "String di prova per test" + LocalDate.now();
+//        Assertions.assertNotNull(servizioService.getCodIdentificativo(valore));
+//
+//    }
+//
+//        @Test
+//    void getCodIdentificativo() {
+//
+//        String valore = "String di prova per test" + LocalDate.now();
+//        Assertions.assertNotNull(servizioService.getCodIdentificativo(valore));
+//
+//    }
+//
+//
 }

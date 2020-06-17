@@ -30,6 +30,12 @@ public class MessageValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "oggetto", "messages.oggetto.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "testo", "messages.testo.empty");
 
+        if (messageDTO.getOggetto().length()<10 || messageDTO.getOggetto().length()>120){
+            errors.rejectValue("oggetto","message.size.oggetto", new Object[]{"10","120"}, "");
+        }
+        if (messageDTO.getTesto().length()<80 || messageDTO.getTesto().length()>10000){
+            errors.rejectValue("testo","message.size.testo", new Object[]{"80","10000"}, "");
+        }
 
         /**
          * TODO: Mirko

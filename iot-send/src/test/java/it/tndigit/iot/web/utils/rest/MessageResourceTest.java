@@ -297,4 +297,73 @@ public class MessageResourceTest extends AbstractResourceTest{
 
 
 
+    @Test
+    @WithMockUser(username = "AAABBBCCC",roles = "USER")
+    @DisplayName("Creazione messagggio con con Oggetto Corto")
+    @Transactional
+    public void createMessageErrorOggetto() throws Exception {
+        messageRepository.deleteAll();
+        MessagePO messagePO = messageGenerate.getObjectPOPrescription(new MessagePO());
+        messagePO.setOggetto("aaa");
+        int databaseSizeBeforeCreate = messageRepository.findAll().size();
+        MessageDTO messageDTO = messageMapper.toDto(messagePO);
+        restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
+
+    }
+
+    @Test
+    @WithMockUser(username = "AAABBBCCC",roles = "USER")
+    @DisplayName("Creazione messaggio con con Oggetto Non corretto")
+    @Transactional
+    public void createMessagePrescriptionErrorOggetto() throws Exception {
+        messageRepository.deleteAll();
+        MessagePO messagePO = messageGenerate.getObjectPOPrescription(new MessagePO());
+        messagePO.setOggetto(RandomStringUtils.randomAlphanumeric(9));
+
+        MessageDTO messageDTO = messageMapper.toDto(messagePO);
+        restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
+
+        messagePO.setOggetto(RandomStringUtils.randomAlphanumeric(121));
+        messageDTO = messageMapper.toDto(messagePO);
+        restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
+    }
+
+    @Test
+    @WithMockUser(username = "AAABBBCCC",roles = "USER")
+    @DisplayName("Creazione messaggio con con Testo Non corretto")
+    @Transactional
+    public void createMessageErrorTesto() throws Exception {
+        messageRepository.deleteAll();
+        MessagePO messagePO = messageGenerate.getObjectPOPrescription(new MessagePO());
+        messagePO.setTesto(RandomStringUtils.randomAlphanumeric(79));
+
+        MessageDTO messageDTO = messageMapper.toDto(messagePO);
+        restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
+
+        messagePO.setTesto(RandomStringUtils.randomAlphanumeric(10001));
+        messageDTO = messageMapper.toDto(messagePO);
+        restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
+    }
+
+
 }

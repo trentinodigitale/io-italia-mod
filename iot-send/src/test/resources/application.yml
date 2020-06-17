@@ -52,10 +52,13 @@ spring:
     console:
       enabled: true
   rabbitmq:
-    host: 51.137.206.83
+    #host: 51.137.206.83
+    #username: tndigit
+    #password: tndigit-ioItalia
+    host: 172.26.7.70
     port: 5672
-    username: tndigit
-    password: tndigit-ioItalia
+    username: guest
+    password: guest
 
 
 server:

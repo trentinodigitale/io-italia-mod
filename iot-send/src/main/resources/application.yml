@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: IO.T. Receive
+  profiles:
+    active: #activeProfile#

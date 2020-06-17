@@ -39,7 +39,6 @@ public class MessageResource extends AbstractResource {
                            MessageServiceSend messageService) {
         this.messageValidator = messageValidator;
         this.messageService = messageService;
-
     }
 
     /**

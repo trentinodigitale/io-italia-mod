@@ -26,6 +26,7 @@ public class ServizioValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "codiceFiscale", "servizio.codiceFiscale.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "servizio.email.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailPec", "servizio.emailPec.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "codiceIdentificativo", "servizio.codiceIdentificativo.empty");
 
 
     }

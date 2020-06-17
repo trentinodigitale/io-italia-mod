@@ -5,7 +5,7 @@
     <parent>
         <artifactId>IoItaliamod</artifactId>
         <groupId>it.tndigit</groupId>
-        <version>0.7.0</version>
+        <version>0.8.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-send</artifactId>
@@ -35,11 +35,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
@@ -56,16 +51,23 @@
     </dependencies>
     <build>
         <plugins>
+<!--            <plugin>-->
+<!--                <artifactId>maven-war-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <configuration>-->
+<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <excludes>
+                        <!-- This is where the exclusion occurs -->
+                        <exclude>application-dev.yml</exclude>
+                    </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -96,6 +98,10 @@
                     <image>
                         <name>${docker.image.prefix}/${project.artifactId}</name>
                     </image>
+                    <arguments>
+                        <argument></argument>
+                    </arguments>
+
                 </configuration>
             </plugin>
 

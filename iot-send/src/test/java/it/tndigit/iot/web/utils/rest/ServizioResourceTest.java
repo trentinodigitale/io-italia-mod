@@ -52,6 +52,7 @@ public class ServizioResourceTest extends AbstractResourceTest{
     private ServizioPO servizioPO;
 
 
+
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -194,10 +195,10 @@ public class ServizioResourceTest extends AbstractResourceTest{
     @Transactional
     @Sql(scripts = {"/script/insertServizio.sql"})
     public void getServizio ()throws Exception{
-        restServizioMockMvc.perform(get("/api/v1/servizio/{idObj}", 10000L))
+        restServizioMockMvc.perform(get("/api/v1/servizio/{codIdentificativo}", "asdfkljuoerqewuronr"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.codiceIdentificativo").value("ÒLJASFKLA"));
+            .andExpect(jsonPath("$.codiceIdentificativo").value("asdfkljuoerqewuronr"));
 
         restServizioMockMvc.perform(get("/api/v1/servizio/{idObj}", 20000L))
                 .andExpect(status().isNoContent());

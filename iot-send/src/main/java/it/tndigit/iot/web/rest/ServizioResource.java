@@ -87,18 +87,39 @@ public class ServizioResource extends AbstractResource {
         }
     }
 
+//    /**
+//     * GET  /servizio/:id : get the "id" Servizio.
+//     *
+//     * @param idObj the id of the ServizioDTO to retrieve
+//     * @return the ResponseEntity with status 200 (OK) and with body the areaDTO, or with status 404 (Not Found)
+//     */
+//    @GetMapping("/servizio/{idObj}")
+//    @ApiOperation("Ritorna un Servizio dato un determinato idObj")
+//    public ResponseEntity< ServizioDTO > getServizio(@PathVariable Long idObj) {
+//        log.debug("REST request to get Area : {}", idObj);
+//
+//        Optional< ServizioDTO > ServizioDTO = servizioService.findOne(idObj);
+//        if (ServizioDTO.isPresent()) {
+//            return new ResponseEntity<>(ServizioDTO.get(), HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//
+//
+//    }
+
+
     /**
      * GET  /servizio/:id : get the "id" Servizio.
      *
-     * @param idObj the id of the ServizioDTO to retrieve
+     * @param codIdentificativo the id of the ServizioDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the areaDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/servizio/{idObj}")
-    @ApiOperation("Ritorna un Servizio dato un determinato idObj")
-    public ResponseEntity< ServizioDTO > getServizio(@PathVariable Long idObj) {
-        log.debug("REST request to get Area : {}", idObj);
+    @GetMapping("/servizio/{codIdentificativo}")
+    @ApiOperation("Ritorna un Servizio dato un determinato codIndentificativo")
+    public ResponseEntity< ServizioDTO > getServizio(@PathVariable String codIdentificativo) {
+        log.debug("REST request to get Area : {}", codIdentificativo);
 
-        Optional< ServizioDTO > ServizioDTO = servizioService.findOne(idObj);
+        Optional< ServizioDTO > ServizioDTO = servizioService.findOne(codIdentificativo);
         if (ServizioDTO.isPresent()) {
             return new ResponseEntity<>(ServizioDTO.get(), HttpStatus.OK);
         }
