@@ -6,9 +6,18 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @Component
 public class ServizioValidator implements Validator {
+
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -18,7 +27,7 @@ public class ServizioValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ServizioDTO enteDTO = (ServizioDTO) target;
+        ServizioDTO servizioDTO = (ServizioDTO) target;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nomeEnte", "servizio.nomeEnte.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nomeDipartimento", "servizio.nomeDipartimento.empty");
@@ -28,6 +37,29 @@ public class ServizioValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailPec", "servizio.emailPec.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "codiceIdentificativo", "servizio.codiceIdentificativo.empty");
 
+        if (errors.getAllErrors().isEmpty()){
+            if (!validate(servizioDTO.getEmail())){
+                errors.rejectValue("email","messages.servizio.email.format",null , "");
+            }
+            if (!validate(servizioDTO.getEmailPec())){
+                errors.rejectValue("email","messages.servizio.email.format",null , "");
+            }
+        }
+
+
+
+
+
+
+
+
 
     }
+
+
+    public boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
 }

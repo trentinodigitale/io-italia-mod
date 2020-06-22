@@ -8,11 +8,15 @@ import it.tndigit.iot.service.dto.ServizioDTO;
 import it.tndigit.iot.service.mapper.ServizioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,23 +56,23 @@ public class ServizioServiceImpl implements ServizioService {
 
     }
 
-    /**
-     * Get one Ente by id.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ServizioDTO> findOne(Long id) {
-        Optional< ServizioPO > entePO = servizioRepository.findById(id);
-
-        if (entePO.isPresent()){
-            ServizioDTO enteDTO = enteMapper.toDto(entePO.get());
-            return Optional.of(enteDTO);
-        }
-        return Optional.empty();
-    }
+//    /**
+//     * Get one Ente by id.
+//     *
+//     * @param id the id of the entity
+//     * @return the entity
+//     */
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Optional<ServizioDTO> findOne(Long id) {
+//        Optional< ServizioPO > entePO = servizioRepository.findById(id);
+//
+//        if (entePO.isPresent()){
+//            ServizioDTO enteDTO = enteMapper.toDto(entePO.get());
+//            return Optional.of(enteDTO);
+//        }
+//        return Optional.empty();
+//    }
 
 
 
@@ -95,9 +99,16 @@ public class ServizioServiceImpl implements ServizioService {
         servizioRepository.deleteById(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page< ServizioDTO > findAll(Pageable paging) {
+        Page<ServizioDTO> servizioPOPage = servizioRepository.findAll(paging).map(enteMapper::toDto);
+        return servizioPOPage;
+
+    }
 
 
-//    protected String getCodIdentificativo (String valore ){
+    //    protected String getCodIdentificativo (String valore ){
 //        return DigestUtils.md5DigestAsHex(valore.getBytes());
 //    }
 }

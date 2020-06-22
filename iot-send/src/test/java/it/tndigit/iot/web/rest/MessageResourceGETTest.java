@@ -1,9 +1,8 @@
-package it.tndigit.iot.web.utils.rest;
+package it.tndigit.iot.web.rest;
 
 import it.tndigit.iot.service.MessageServiceSend;
 import it.tndigit.iot.service.ServizioService;
 import it.tndigit.iot.utils.MessageBundleBuilder;
-import it.tndigit.iot.web.rest.MessageResource;
 import it.tndigit.iot.web.validator.MessageValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;

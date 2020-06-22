@@ -1,4 +1,4 @@
-package it.tndigit.iot.web.utils.rest;
+package it.tndigit.iot.web.rest;
 
 import it.tndigit.iot.domain.ServizioPO;
 import it.tndigit.iot.generate.ServizioGenerate;
@@ -6,7 +6,6 @@ import it.tndigit.iot.repository.ServizioRepository;
 import it.tndigit.iot.service.ServizioService;
 import it.tndigit.iot.service.dto.ServizioDTO;
 import it.tndigit.iot.service.mapper.ServizioMapper;
-import it.tndigit.iot.web.rest.ServizioResource;
 import it.tndigit.iot.web.validator.ServizioValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -56,8 +58,8 @@ public class ServizioResourceTest extends AbstractResourceTest{
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ServizioResource areaResource = new ServizioResource(servizioService, servizioValidator);
-        this.restServizioMockMvc = MockMvcBuilders.standaloneSetup(areaResource)
+        final ServizioResource servizioResource = new ServizioResource(servizioService, servizioValidator);
+        this.restServizioMockMvc = MockMvcBuilders.standaloneSetup(servizioResource)
                 .setCustomArgumentResolvers(pageableArgumentResolver)
                 .setControllerAdvice(exceptionTranslator)
                 .setConversionService(TestUtil.createFormattingConversionService())
@@ -225,9 +227,6 @@ public class ServizioResourceTest extends AbstractResourceTest{
 
     }
 
-
-
-
     @Test
     @DisplayName("Delete Servizio")
     public void deleteServizio()throws  Exception {
@@ -241,8 +240,25 @@ public class ServizioResourceTest extends AbstractResourceTest{
 
         List< ServizioPO > servizioPOS = servizioRepository.findAll();
         assertThat(servizioPOS).hasSize(databaseSizeBeforeDelete -1);
-
-
-
     }
+
+    @Test
+    @Sql(scripts = {"/script/insertServizi.sql"})
+    @DisplayName("Find Servizi Paginati")
+    @Transactional
+    void findAll() throws Exception {
+
+        ResultActions resultActions = restServizioMockMvc.perform(get("/api/v1/servizio/find?pageNo=0&pageSize=2&sortBy=codiceIdentificativo"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.servizioDTOs", hasSize(2)))
+                .andExpect(jsonPath("$.totalItems").value(10))
+                .andExpect(jsonPath("$.currentPage").value(0))
+                .andExpect(jsonPath("$.totalPages").value(5));
+                //.andExpect(jsonPath("$.sortBy").value("codiceIdentificativo: DESC"));
+
+        resultActions.andReturn().getResponse().getContentAsString();
+    }
+
+
 }

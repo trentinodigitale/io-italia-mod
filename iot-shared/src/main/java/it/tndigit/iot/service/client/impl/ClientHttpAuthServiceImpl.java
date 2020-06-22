@@ -8,20 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
-@Transactional
-@EnableAsync
-@Slf4j
-public class ClientHttpAuthServiceImpl extends ClientHttpServiceImpl implements ClientHttpAuthService {
-    @Override
-    public Optional< String > getPublicKey(){
-        try{
-            configureApiClientAuth(getAuthRest().getApiClient());
-            String pubicKey = getAuthRest().getPublicKeyUsingGET();
-            return Optional.ofNullable(pubicKey);
-        }catch (Exception ex){
-            log.error("ClientHttpAuthServiceImpl " + ex.getMessage() );
-            throw ex;
-        }
-    }
-}
+//@Service
+//@Transactional
+//@EnableAsync
+//@Slf4j
+//public class ClientHttpAuthServiceImpl extends ClientHttpServiceImpl implements ClientHttpAuthService {
+//    @Override
+//    public Optional< String > getPublicKey(){
+//        try{
+//            configureApiClientAuth(getAuthRest().getApiClient());
+//            String pubicKey = getAuthRest().getPublicKeyUsingGET();
+//            return Optional.ofNullable(pubicKey);
+//        }catch (Exception ex){
+//            log.error("ClientHttpAuthServiceImpl " + ex.getMessage() );
+//            throw ex;
+//        }
+//    }
+//}

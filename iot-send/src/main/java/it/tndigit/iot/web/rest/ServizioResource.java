@@ -10,6 +10,11 @@ import it.tndigit.iot.web.rest.utils.HeaderUtil;
 import it.tndigit.iot.web.validator.ServizioValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,6 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -170,4 +178,37 @@ public class ServizioResource extends AbstractResource {
         servizioService.delete(idObj);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, idObj.toString())).build();
     }
+
+
+    @GetMapping("/servizio/find")
+    @ApiOperation("Lista dei servizi in modalita paginata")
+    public ResponseEntity<Map<String, Object>> findAll (
+                                       @RequestParam(defaultValue = "0") Integer pageNo,
+                                       @RequestParam(defaultValue = "10") Integer pageSize,
+                                       @RequestParam(defaultValue = "idObj") String sortBy) {
+
+        try {
+            Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+            Page< ServizioDTO > servizioDTOPage = servizioService.findAll(paging);
+
+            if (servizioDTOPage.getContent().isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            Map< String, Object > response = new HashMap<>();
+            response.put("servizioDTOs", servizioDTOPage.getContent());
+            response.put("currentPage", servizioDTOPage.getNumber());
+            response.put("totalItems", servizioDTOPage.getTotalElements());
+            response.put("totalPages", servizioDTOPage.getTotalPages());
+            response.put("sortBy", sortBy);
+
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+
+        }catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
 }

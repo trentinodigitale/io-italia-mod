@@ -2,7 +2,7 @@
 //
 //import it.tndigit.iot.common.UtilityDate;
 //import it.tndigit.iot.repository.ServizioRepository;
-//import it.tndigit.iot.service.client.ClientHttpAuthService;
+//import it.tndigit.iot.it.tndigit.iot.service.client.ClientHttpAuthService;
 //import it.tndigit.iot.web.rest.utils.JwtTokenUtil;
 //import it.tndigit.iot.web.rest.utils.JwtUser;
 //import it.tndigit.iot.web.rest.utils.RSA;

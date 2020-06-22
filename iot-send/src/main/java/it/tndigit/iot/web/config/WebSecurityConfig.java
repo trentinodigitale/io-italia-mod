@@ -97,17 +97,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public class JwtAudienceValidator implements OAuth2TokenValidator<Jwt> {
     	
     	private final OAuth2Error audienceError = new OAuth2Error("401", "Invalid audience", null);
-    	private final OAuth2Error serviceError = new OAuth2Error("401", "Invalid service", null);
+    	private final OAuth2Error serviceError = new OAuth2Error("401", "Invalid it.tndigit.iot.service", null);
 
     	@Override
     	public OAuth2TokenValidatorResult validate(Jwt token) {
-    		// validate audience: should contain resource service id
+    		// validate audience: should contain resource it.tndigit.iot.service id
     		if (!token.getClaimAsStringList(JwtClaimNames.AUD).contains(resourceId)) {
     			return OAuth2TokenValidatorResult.failure(audienceError);
     		}
     		// client ID as of OAuth2.0
     		String clientId = token.getSubject();
-    		// check service is present
+    		// check it.tndigit.iot.service is present
             Optional<ServizioPO> servizioPOOptional = servizioRepository.findAllByCodiceIdentificativo(clientId);
             if (!servizioPOOptional.isPresent()) {
                 log.error("Servizio NON registrato nella base dati");

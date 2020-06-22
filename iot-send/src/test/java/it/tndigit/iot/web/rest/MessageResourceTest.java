@@ -1,4 +1,4 @@
-package it.tndigit.iot.web.utils.rest;
+package it.tndigit.iot.web.rest;
 
 import it.tndigit.ioitalia.client.invoker.ApiClient;
 import it.tndigit.ioitalia.service.dto.InlineResponse201;
@@ -13,7 +13,6 @@ import it.tndigit.iot.repository.ServizioRepository;
 import it.tndigit.iot.service.MessageServiceSend;
 import it.tndigit.iot.service.dto.message.MessageDTO;
 import it.tndigit.iot.service.mapper.MessageMapper;
-import it.tndigit.iot.web.rest.MessageResource;
 import it.tndigit.iot.web.validator.MessageValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;

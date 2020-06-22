@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ClientHttpServiceImpl implements ClientHttpService {
 
-    @Value("${server.origin.auth}")
+//    @Value("${server.origin.auth}")
     String basePathAuth;
 
 

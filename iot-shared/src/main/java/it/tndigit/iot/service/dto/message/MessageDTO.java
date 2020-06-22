@@ -34,11 +34,9 @@ public class MessageDTO extends CommonDTO implements Serializable {
 
     private Integer timeToLive = 3600;
 
-    @Size(min = 10, max = 120)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String oggetto;
 
-    @Size(min = 80, max = 10000)
     private String testo;
 
     private String email;

@@ -1,4 +1,4 @@
-package it.tndigit.iot.web.utils.rest;
+package it.tndigit.iot.web.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

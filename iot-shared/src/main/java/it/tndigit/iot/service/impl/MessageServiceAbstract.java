@@ -21,8 +21,6 @@ public abstract class MessageServiceAbstract implements MessageServiceReceive {
     @Autowired
     protected ServizioRepository servizioRepository;
 
-    @Autowired
-    protected JavaMailSender javaMailSender;
 
     @Autowired
     protected MessageMapper messageMapper;

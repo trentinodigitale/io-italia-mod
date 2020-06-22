@@ -1,4 +1,4 @@
-package it.tndigit.iot.web.utils.rest;
+package it.tndigit.iot.web.rest;
 
 
 import it.tndigit.iot.web.utils.errors.ExceptionTranslator;
