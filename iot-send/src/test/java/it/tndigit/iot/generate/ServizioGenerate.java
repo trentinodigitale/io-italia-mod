@@ -25,8 +25,8 @@ public class ServizioGenerate extends AbstractGenerate< ServizioPO, ServizioDTO 
         }
 
         po.setCodiceFiscale(RandomStringUtils.randomAlphabetic(16));
-        po.setEmail(RandomStringUtils.randomAlphanumeric(10));
-        po.setEmailPec(RandomStringUtils.randomAlphanumeric(10));
+        po.setEmail(RandomStringUtils.randomAlphanumeric(10)+ "@gmail.com");
+        po.setEmailPec(RandomStringUtils.randomAlphanumeric(10)+ "@gmail.com");
         po.setNomeEnte(RandomStringUtils.randomAlphabetic(200));
         po.setNomeServizio(RandomStringUtils.randomAlphabetic(200));
         po.setNomeDipartimento(RandomStringUtils.randomAlphabetic(200));
