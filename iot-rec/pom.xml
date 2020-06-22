@@ -5,10 +5,12 @@
     <parent>
         <artifactId>IoItaliamod</artifactId>
         <groupId>it.tndigit</groupId>
-        <version>0.7.0</version>
+        <version>0.8.4</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>iot-rec</artifactId>
+    <version>0.8.4</version>
 
     <properties>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
@@ -34,24 +36,30 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-
-         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.9.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
         </dependency>
 
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <excludes>
+                        <exclude>application-dev.yml</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

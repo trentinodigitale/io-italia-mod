@@ -1,7 +1,9 @@
 package it.tndigit.iot.web.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,7 +17,8 @@ import java.util.Arrays;
 import java.util.Locale;
 
 @Configuration
-
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -27,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**", "**/favicon.ico").anonymous()
                 .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/swagger-ui.html/**", "/actuator/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .logout()

@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,9 @@ public class MessageServiceEmailImpl extends MessageServiceAbstract implements M
     @Autowired
     ApplicationContext applicationContext;
 
+
+    @Autowired
+    protected JavaMailSender javaMailSender;
 
     @Autowired
     MessageRepository messageRepository;
@@ -70,15 +74,6 @@ public class MessageServiceEmailImpl extends MessageServiceAbstract implements M
 
         }
 
-//
-//        //Controllo che il messaggio sia presente nella base dati, potrebbe essere stato cancellato
-//        Optional< MessagePO > messagePO = messageRepository.findById(messageDTO.getIdObj());
-//
-//        if (!messagePO.isPresent()){
-//            log.warn("Attenzione, messaggio "+ messageDTO.getIdObj() + " NON trovato nella base dati");
-//        }else{
-//
-//        }
     }
 
 
@@ -103,25 +98,5 @@ public class MessageServiceEmailImpl extends MessageServiceAbstract implements M
 
     }
 
-
-//    private void saveNotification(MessageDTO messageDTO) {
-//        try{
-//            messageDTO.getNotificationDTOS()
-//                    .stream()
-//                    .map(notificationDTO -> notificationMapper.toEntity(notificationDTO))
-//                    .forEach(
-//                            notificationPO -> notificationRepository.saveAndFlush(notificationPO)
-//                    );
-//        }catch (DataIntegrityViolationException diEx){
-//            log.error("Messaggio " + messageDTO.getIdObj()  + "Non presente nella base dati -- Attenzione!!");
-//
-//        }
-//        catch (Exception ex){
-//            log.error(ex.getMessage());
-//
-//        }
-//
-//
-//    }
 
 }
