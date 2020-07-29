@@ -187,7 +187,7 @@ public class MessageResourceTest extends AbstractResourceTest{
         restMessageMockMvc.perform(post("/api/v1/message/{codiceFiscale}",messageDTO.getCodiceFiscale())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
-                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
 
     }
@@ -310,6 +310,7 @@ public class MessageResourceTest extends AbstractResourceTest{
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(messageDTO)))
                 .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.erroreImprevisto").isNotEmpty());
 
     }

@@ -14,10 +14,10 @@ VOLUME /tmp
 EXPOSE 8281
 
 # The application's jar file
-ARG JAR_FILE=target/iot-send-0.7.0.jar
+ARG JAR_FILE=target/iot-send-0.8.5.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} iot-send.jar
 
 # Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/io-send.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","iot-send.jar"]
