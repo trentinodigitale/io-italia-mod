@@ -7,7 +7,7 @@
     <parent>
         <artifactId>IoItaliamod</artifactId>
         <groupId>it.tndigit</groupId>
-        <version>0.8.4</version>
+        <version>0.8.5</version>
     </parent>
 
 
