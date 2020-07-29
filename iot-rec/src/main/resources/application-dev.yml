@@ -1,0 +1,157 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: dev
+  messages:
+    encoding: UTF-8
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+
+  mail:
+    host: relay.infotn.it
+    port: 25
+    username:
+    password:
+
+    # Other properties
+    properties:
+      mail:
+        smtp:
+          auth: false
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+          # TLS , port 587
+          starttls:
+            enable: true
+
+  rabbitmq:
+    host: 172.26.7.70
+    port: 5672
+    username: guest
+    password: guest
+
+  jms:
+    pub-sub-domain: false
+
+
+  jpa:
+    database: postgresql
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      #ddl-auto: none
+      #7ddl-auto: update
+      #ddl-auto: validate
+      #ddl-auto: create-drop
+      #ddl-auto: create
+    properties:
+      hibernate:
+        default_schema: suiot01
+        temp:
+          use_jdbc_metadata_defaults: false
+        connection:
+          connection: utf-8
+          CharSet: utf-8
+          useUnicode: true
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+    allow-bean-definition-overriding: true
+
+  security:
+    oauth2:
+      resourceserver:
+        id: ${RESOURCESERVER_ID:iotrentino}
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it/aac}
+          jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/aac/jwk}
+
+
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://172.26.7.70:5432/suiot01?characterEncoding=UTF-8
+    username: infotn
+    password: infotn
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    #initialization-mode: never
+    continue-on-error: true
+    tomcat:
+      connection-properties:
+      test-on-borrow: true
+      validation-query: SELECT 1
+      validation-interval: 30000
+      remove-abandoned: true
+      remove-abandoned-timeout: 55
+      max-active: 100
+      test-while-idle: true
+    hikari:
+      maximum-pool-size: 50
+
+
+
+  data:
+    neo4j:
+      open-in-view: true
+
+  aop:
+    auto: true
+
+  application:
+    name: IO.T. Receive
+
+jwt:
+  header: Authorization
+
+server:
+  port: 8282
+  tomcat:
+    uri-encoding: UTF-8
+
+#Per attivare la schedulazione è necessario
+#settare la chiave iot.cron.enable a true
+#la property fixedDelay definisce il tempo tra un'esecuzione e l'altra
+iot:
+  crypt:
+    secretKey: ICmpuCr4PGYJ2nsKqp3y
+    salt: RrPdwdiAsDAOqJdDHSO7
+
+opentracing:
+  jaeger:
+    udp-sender:
+      host: 51.137.206.83
+      port: 6831
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: ERROR
+    com.fasterxml.jackson: ERROR
+    it.infotn: INFO
+    it.infotn.opv.service.command.schedavalutazione: DEBUG
+    io.swagger.models: ERROR
+
+application:
+  io-app:
+    rabbitmq:
+      exchange: ioapp.exchange
+      queue: ioapp.queue
+      routingkey: ioapp.routingkey
+
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+    web:
+      exposure:
+        include: '*'

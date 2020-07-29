@@ -14,7 +14,7 @@ VOLUME /tmp
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=target/iot-rec-0.7.0.jar
+ARG JAR_FILE=target/iot-rec-0.8.5.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} iot-rec.jar

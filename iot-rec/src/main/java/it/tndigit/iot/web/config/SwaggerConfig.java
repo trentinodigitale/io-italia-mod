@@ -44,7 +44,7 @@ public class SwaggerConfig {
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")
-                .version("0.8.4")
+                .version("0.8.5")
                 .contact(new Contact("Trentino Digitale", "http://www.tndigit.it", "info@tndigit.it"))
                 .build();
     }

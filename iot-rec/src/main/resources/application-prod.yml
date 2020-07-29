@@ -1,0 +1,162 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: prod
+  messages:
+    encoding: UTF-8
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+
+  mail:
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    protocol: ${EMAIL_PROTOCOL}
+
+
+    # Other properties
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          userset: true
+
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+
+          # TLS , port 587
+          starttls:
+            enable: false
+
+  rabbitmq:
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: ${RABBIT_USERNAME}
+    password: ${RABBIT_PASSWORD}
+
+  jms:
+    pub-sub-domain: false
+
+  jpa:
+    database: postgresql
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        default_schema: suiot01
+        temp:
+          use_jdbc_metadata_defaults: false
+        connection:
+          connection: utf-8
+          CharSet: utf-8
+          useUnicode: true
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+  security:
+    oauth2:
+      resourceserver:
+        id: ${RESOURCESERVER_ID:iotrentino}
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it/aac}
+          jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/aac/jwk}
+
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/suiot01?characterEncoding=UTF-8&useSSL=true&requireSSL=true
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    #initialization-mode: never
+    continue-on-error: true
+    tomcat:
+      connection-properties:
+      test-on-borrow: true
+      validation-query: SELECT 1
+      validation-interval: 30000
+      remove-abandoned: true
+      remove-abandoned-timeout: 55
+      max-active: 200
+      test-while-idle: true
+
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 10000
+      max-lifetime: 30000
+      connection-timeout: 20000
+
+
+
+
+  data:
+    neo4j:
+      open-in-view: true
+
+  application:
+    name: I.O.T.
+
+
+
+server:
+  port: 8281
+  tomcat:
+    uri-encoding: UTF-8
+
+iot:
+  crypt:
+    secretKey: FRODrFd2z8LD5qOYaYcS
+    salt: 8zAtvuCN0GsbmtJuHEKH
+
+
+opentracing:
+  jaeger:
+    udp-sender:
+      host: ${JAEGER_HOST}
+      port: ${JAEGER_PORT}
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: ERROR
+    com.fasterxml.jackson: ERROR
+    it.infotn: INFO
+    it.infotn.opv.service.command.schedavalutazione: DEBUG
+    io.swagger.models: ERROR
+
+application:
+  io-app:
+    rabbitmq:
+      exchange: ioapp.exchange
+      queue: ioapp.queue
+      routingkey: ioapp.routingkey
+
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+    web:
+      exposure:
+        include: '*'
