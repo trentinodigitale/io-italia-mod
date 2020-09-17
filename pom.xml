@@ -7,7 +7,7 @@
     <groupId>it.tndigit</groupId>
     <artifactId>IoItaliamod</artifactId>
     <packaging>pom</packaging>
-    <version>0.8.4</version>
+    <version>0.8.7</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

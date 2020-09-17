@@ -11,10 +11,10 @@ LABEL maintainer="mirko.pianetti@tndigit.it"
 VOLUME /tmp
 
 # Make port 8080 available to the world outside this container
-EXPOSE 8080
+EXPOSE 8282
 
 # The application's jar file
-ARG JAR_FILE=target/iot-rec-0.8.5.jar
+ARG JAR_FILE=target/iot-rec-0.8.7.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} iot-rec.jar

@@ -8,32 +8,6 @@ spring:
     mode: HTML5
     encoding: UTF-8
 
-  mail:
-    host: ${EMAIL_HOST}
-    port: ${EMAIL_PORT}
-    username: ${EMAIL_USERNAME}
-    password: ${EMAIL_PASSWORD}
-    protocol: ${EMAIL_PROTOCOL}
-
-
-    # Other properties
-    properties:
-      mail:
-        smtp:
-          auth: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
-          userset: true
-
-          socketFactory:
-            port: 465
-            class: javax.net.ssl.SSLSocketFactory
-
-          # TLS , port 587
-          starttls:
-            enable: false
-
   rabbitmq:
     host: ${RABBIT_HOST}
     port: ${RABBIT_PORT}
@@ -45,11 +19,15 @@ spring:
 
   jpa:
     database: postgresql
-    show-sql: false
+    show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: update
-
+      #ddl-auto: none
+      #7ddl-auto: update
+      #ddl-auto: validate
+      #ddl-auto: create-drop
+      #ddl-auto: create
     properties:
       hibernate:
         default_schema: suiot01
@@ -66,9 +44,6 @@ spring:
       enabled: true
       force: true
 
-
-
-  main:
     allow-bean-definition-overriding: true
 
   security:
@@ -78,6 +53,7 @@ spring:
         jwt:
           issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it/aac}
           jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/aac/jwk}
+
 
   datasource:
     platform: postgresql
@@ -103,36 +79,40 @@ spring:
       minimum-idle: 2
       idle-timeout: 10000
       max-lifetime: 30000
+      #maxLifetime: 30000
       connection-timeout: 20000
-
-
 
 
   data:
     neo4j:
       open-in-view: true
 
+  aop:
+    auto: true
+
   application:
-    name: I.O.T.
-
-
+    name: IO.T. Sender
 
 server:
-  port: 8282
+  port: ${PORT}
   tomcat:
     uri-encoding: UTF-8
-
-iot:
-  crypt:
-    secretKey: FRODrFd2z8LD5qOYaYcS
-    salt: 8zAtvuCN0GsbmtJuHEKH
-
 
 opentracing:
   jaeger:
     udp-sender:
       host: ${JAEGER_HOST}
       port: ${JAEGER_PORT}
+
+
+#Per attivare la schedulazione è necessario
+#settare la chiave iot.cron.enable a true
+#la property fixedDelay definisce il tempo tra un'esecuzione e l'altra
+iot:
+  crypt:
+    secretKey: ICmpuCr4PGYJ2nsKqp3y
+    salt: RrPdwdiAsDAOqJdDHSO7
+
 
 
 logging:

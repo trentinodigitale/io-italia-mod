@@ -19,7 +19,7 @@ spring:
 
   jpa:
     database: postgresql
-    show-sql: false
+    show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: update

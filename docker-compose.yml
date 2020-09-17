@@ -1,30 +1,95 @@
-version: '3'
+version: '3.4'
 services:
+  postgres:
+    image: postgres
+    restart: always
+    user: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./docker/postgres/etc/database.env
+    volumes:
+      - ./docker/postgres/etc/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  config-server:
-    image: tndigitdocker/config-server:latest
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmqhe
+    volumes:
+      - ./docker/rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  iot-send:
+    image: tndigitdocker/iot-send:latest
+    restart: always
     build:
-      dockerfile:
+      dockerfile: Dockerfile
+      context: iot-send
+
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      RABBIT_HOST: 172.17.0.1
+      RABBIT_PORT: 5672
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
+      POSTGRESQL_HOST: 172.17.0.1
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME: admin
+      POSTGRESQL_PASSWORD: admin
+      JAEGER_HOST: 51.137.206.83
+      JAEGER_PORT: 6831
+      PORT: 8281
+
+    ports:
+      - 8281:8281
+
+    depends_on:
+      - postgres
+      - rabbitmq
+      - iot-rec
+
+    logging:
+      driver: local
+
 
   iot-rec:
     image: tndigitdocker/iot-rec:latest
+    restart: always
     build:
-      dockerfile:
+      dockerfile: Dockerfile
+      context: iot-rec
     environment:
-      CONFIG_URI=http://40.113.23.130:18888
+      EMAIL_HOST: mail.comune.trento.it
+      SPRING_PROFILES_ACTIVE: docker
+      EMAIL_PORT: 465
+      EMAIL_USERNAME: iotrentino@comune.trento.it
+      EMAIL_PASSWORD: jtrunfrt24
+      EMAIL_PROTOCOL: smtps
+      RABBIT_HOST: 172.17.0.1
+      RABBIT_PORT: 5672
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
+      POSTGRESQL_HOST: 172.17.0.1
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME: admin
+      POSTGRESQL_PASSWORD: admin
+      JAEGER_HOST: 51.137.206.83
+      JAEGER_PORT: 6831
+      PORT: 8282
+
+
+    logging:
+      driver: local
+
     ports:
-    - 8281:8281
+      - 8282:8282
 
-  web:
-    image: httpd
-    ports:
-    - "8281:8281"
-
-
-
-  db:
-    image: postresql
-    ports:
-    - 5432:5432
-
+    depends_on:
+      - postgres
+      - rabbitmq
 

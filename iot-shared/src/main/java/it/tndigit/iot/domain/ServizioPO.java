@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class ServizioPO extends DatePO {
 
     @NotNull
-    @Column(name = "NOME_ENTE",unique = true)
+    @Column(name = "NOME_ENTE")
     private String nomeEnte;
 
     @NotNull
