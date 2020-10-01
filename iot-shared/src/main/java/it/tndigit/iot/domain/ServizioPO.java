@@ -42,7 +42,7 @@ public class ServizioPO extends DatePO {
     private String email;
 
     @NotNull
-    @Column(name = "EMAIL_PEC",unique = true)
+    @Column(name = "EMAIL_PEC")
     private String emailPec;
 
     @Column(name = "TOKEN", unique = true)
