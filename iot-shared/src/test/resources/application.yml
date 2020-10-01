@@ -1,4 +1,4 @@
-# Spring Boot configuration
+  # Spring Boot configuration
 spring:
   profiles:
     active: Test

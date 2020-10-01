@@ -5,7 +5,7 @@
     <parent>
         <artifactId>IoItaliamod</artifactId>
         <groupId>it.tndigit</groupId>
-        <version>0.8.7</version>
+        <version>0.8.8</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>it.tndigit</groupId>
             <artifactId>iot-shared</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
