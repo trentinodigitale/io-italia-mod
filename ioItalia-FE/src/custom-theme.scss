@@ -1,0 +1,61 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$iotrentino-brand: (
+    50: #E1F5FE,
+    100: #B3E5FC,
+    200: #81D4FA,
+    300: #4FC3F7,
+    400: #29B6F6,
+    500: #03A9F4,
+    600: #039BE5,
+    700: #0288D1,
+    800: #0277BD,
+    900: #01579B,
+    A100: #80D8FF,
+    A200: #40C4FF,
+    A400: #00B0FF,
+    A700: #0091EA,
+    contrast: (
+        50: $black-87-opacity,
+        100: $black-87-opacity,
+        200: $black-87-opacity,
+        300: $black-87-opacity,
+        400: $black-87-opacity,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: $black-87-opacity,
+        A200: white,
+        A400: white,
+        A700: white,
+    )
+);
+
+$io-trentino-FE-primary: mat-palette($iotrentino-brand, A700);
+$io-trentino-FE-accent: mat-palette($iotrentino-brand, A200);
+
+// The warn palette is optional (defaults to red).
+$io-trentino-FE-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$io-trentino-FE-theme: mat-light-theme($io-trentino-FE-primary, $io-trentino-FE-accent, $io-trentino-FE-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($io-trentino-FE-theme);
+
