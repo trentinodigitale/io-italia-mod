@@ -38,3 +38,6 @@ INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinse
 
 INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinserimento,utentemodifica,"version",codicefiscale,cod_identificativo,codice_servizio_ioitalia,email,email_pec,nome_dipartimento,nome_ente,nome_servizio,"token") VALUES
 (nextval('suiot01.nxtnbr'),'2020-09-11 14:25:55.797','2020-09-11 14:25:55.797','anonymousUser','anonymousUser',0,'00337460224','630b4bf7-1733-4e85-a0dd-7ab8924fe46c','01EHYQVYCJ9Q3YG7XNRMAR5D1N','serv.appalti.lav.pubb@provincia.tn.it','serv.appalti.lav.pubb@pec.provincia.tn.it','Agenzia provinciale per gli Appalti e Contratti - APAC','Provincia Autonoma di Trento X','APAC','873c13ef88be4eedb4532b9798de6fb0');
+
+INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinserimento,utentemodifica,"version",codicefiscale,cod_identificativo,codice_servizio_ioitalia,email,email_pec,nome_dipartimento,nome_ente,nome_servizio,"token")
+VALUES (nextval('suiot01.nxtnbr'),'2020-11-18 14:25:55.797','2020-11-18 14:25:55.797','anonymousUser','anonymousUser',0,'00990320228','632817c2-8848-4aea-9555-e8206b956ca3','1EQDTQR3C32KJAJ29GJTAEV4F','td440@tndigit.it','td440@tndigit.it','Innovazione','Trentino Digitale S.p.A.','IO-Trentino-Backend','358ab7841f85486cac455e0fb663d9a6');
