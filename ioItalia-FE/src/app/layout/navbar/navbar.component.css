@@ -1,0 +1,92 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .is-mobile .toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+  }
+  
+  h1.app-name {
+    margin-left: 8px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #FFFFFF;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  .sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+         causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+  }
+  
+  
+  .right-spacer {
+    flex: 1 1 auto;
+  }
+  
+  mat-sidenav {
+    user-select: none;
+    width: 250px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .menu-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+  }
+  
+  .menu-button.rotated {
+    transform: rotate(180deg);
+  }
+  
+  .submenu {
+    overflow-y: hidden;
+    transition: transform 300ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    padding-left: 14px;
+  }
+  
+  .submenu.expanded {
+    transform: scaleY(1);
+  }
+  
+  .logo-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+  }
+  
+  mat-icon.smallicon {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+  
+  .mat-nav-list a.active {
+    color: #0091EA;
+    font-weight: bold;
+    background-color: lightgray
+  }
+  
+  img {
+    height: 65%;
+  }
+  

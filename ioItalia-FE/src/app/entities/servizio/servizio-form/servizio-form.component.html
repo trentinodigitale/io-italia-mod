@@ -1,0 +1,100 @@
+<div *ngIf="data != undefined" fxLayout="column" fxFlex="100%" class="mat-typography">
+
+    <form [formGroup]="form" *ngIf="form != undefined" fxFlex>
+
+        <mat-card fxFlex [class.mat-elevation-z0]="data.idObj == undefined">
+
+            <mat-card-header fxLayout="column" fxLayout.xs="column">
+                <h2 *ngIf="data.idObj != undefined else nuovoServizio">Dettaglio servizio</h2>
+                <ng-template #nuovoServizio>
+                    <h2>Nuovo servizio</h2>
+                </ng-template>
+                <div fxLayout="row">
+                    <div mat-card-avatar>
+                        <mat-icon>room_service</mat-icon>
+                    </div>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Nome servizio</mat-label>
+                        <textarea required matInput matTextareaAutosize matAutosizeMaxRows="10" [maxlength]="nomeServizio_length" placeholder="Inserisci servizio..."
+                            formControlName="nomeServizio"></textarea>
+                        <mat-hint *ngIf="form.enabled" align="end">{{form.controls.nomeServizio.value?.length || 0}}/{{nomeServizio_length}}</mat-hint>
+                    </mat-form-field>
+                </div>
+
+            </mat-card-header>
+
+            <mat-card-content fxLayout="column">
+
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nome Ente</mat-label>
+                    <textarea required matInput matTextareaAutosize matAutosizeMaxRows="10" [maxlength]="nomeEnte_length" placeholder="Inserisci nome ente..."
+                        formControlName="nomeEnte"></textarea>
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.nomeEnte.value?.length || 0}}/{{nomeEnte_length}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Nome Dipartimento</mat-label>
+                    <textarea required matInput matTextareaAutosize matAutosizeMaxRows="10" [maxlength]="nomeDipartimento_length" placeholder="Inserisci nome dipartimento..."
+                        formControlName="nomeDipartimento"></textarea>
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.nomeDipartimento.value?.length || 0}}/{{nomeDipartimento_length}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Codice fiscale</mat-label>
+                    <input required matInput placeholder="Inserisci codice fiscale..." [maxlength]="token_length" formControlName="codiceFiscale"
+                    />
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.codiceFiscale.value?.length || 0}}/{{token_length}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Token</mat-label>
+                    <input required matInput placeholder="Inserisci token..." [maxlength]="token_length" formControlName="tokenIoItalia" />
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.tokenIoItalia.value?.length || 0}}/{{token_length}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Codice identificativo</mat-label>
+                    <input required matInput placeholder="Inserisci codice identificativo..." [maxlength]="codiceIdentificativo_length" formControlName="codiceIdentificativo" />
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.codiceIdentificativo.value?.length || 0}}/{{codiceIdentificativo_length}}</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Codice servizio IoItalia</mat-label>
+                    <input required matInput placeholder="Inserisci codice servizio IoItalia..." [maxlength]="codiceIoItalia_length" formControlName="codiceServizioIoItalia" />
+                    <mat-hint *ngIf="form.enabled" align="end">{{form.controls.codiceServizioIoItalia.value?.length || 0}}/{{codiceIoItalia_length}}</mat-hint>
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutGap.xs="0px" fxLayout.xs="column">
+                    <mat-form-field appearance="outline" fxFlex="calc(50% - 5px)">
+                        <mat-label>Email</mat-label>
+                        <input required matInput placeholder="Inserisci email..." [maxlength]="token_length" formControlName="email" />
+                        <mat-hint *ngIf="form.enabled" align="end">{{form.controls.email.value?.length || 0}}/{{token_length}}</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="calc(50% - 5px)">
+                        <mat-label>Email pec</mat-label>
+                        <input required matInput placeholder="Inserisci token..." [maxlength]="token_length" formControlName="emailPec" />
+                        <mat-hint *ngIf="form.enabled" align="end">{{form.controls.emailPec.value?.length || 0}}/{{token_length}}</mat-hint>
+                    </mat-form-field>
+                </div>
+
+
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-stroked-button *ngIf="form.enabled" (click)="cancel()">ANNULLA</button>
+                <button mat-raised-button color="primary" *ngIf="form.enabled" (click)="save(form.value)" [disabled]="!form.valid || !form.dirty">SALVA</button>
+
+                <button mat-icon-button matTooltip="Modifica l'servizio" *ngIf="form.disabled" (click)="edit()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Elimina l'servizio" *ngIf="form.disabled" (click)="delete()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions>
+
+        </mat-card>
+    </form>
+
+
+</div>

@@ -1,0 +1,54 @@
+.title-page {
+    padding: 10px;
+    font-weight: bold;
+    color: #0091EA;
+    vertical-align: bottom;
+    text-align: center;
+}
+
+.title-page > mat-icon {
+    vertical-align: bottom;
+    padding-right: 5px;
+}
+
+#title-list {
+    padding-left: 16px;
+}
+
+.detail {
+    margin: 10px;
+    /* background: white;
+    padding: 0px 10px 5px 10px; */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    overflow-y: auto;
+}
+
+.list {
+    position: relative;
+    overflow: auto;
+}
+
+#empty-list {
+    font-style: italic;
+    padding-left: 15px;
+}
+
+.mat-mini-fab, .mat-fab {
+    position: sticky;
+    bottom: 0;
+    align-self: flex-end;
+    z-index: 1;
+}
+
+/* .sticky-button {
+    position: sticky;
+    bottom: 0px;
+    margin-bottom: 5px;
+    z-index: 1;
+} */
+
+textarea:disabled,
+input:disabled,
+.mat-select-disabled .mat-select-value {
+  color: #666666 !important;
+}

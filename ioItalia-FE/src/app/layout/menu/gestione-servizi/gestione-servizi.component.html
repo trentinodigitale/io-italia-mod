@@ -1,0 +1,22 @@
+<div fxLayout="column" fxFlexFill>
+    <div class="title-page" fxFlex="50px">
+        <mat-icon>room_service</mat-icon>
+        <span>SERVIZI</span>
+    </div>
+    
+    <div fxLayout="row" fxFlex="calc(100% - 50px)">
+        <div fxLayout="column" fxFlex>
+            <app-servizio-list fxFlex [servizi]="servizi" (selectedServizioEmitter)="onSelection($event)" (refreshEmitter)="loadAll()"></app-servizio-list>  
+            <mat-paginator [length]="totalItems"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[1, 5, 10, 25, 100]" (page)="onPageUpdate($event)">
+            </mat-paginator>   
+        </div>
+        <div fxLayout="row" fxFlex="60%" class="detail" *ngIf="servizio != undefined">
+            <app-servizio-form fxFlex [data]="servizio" (refreshEmitter)="loadAll()"></app-servizio-form>
+        </div>  
+     
+    </div>
+
+
+</div>
