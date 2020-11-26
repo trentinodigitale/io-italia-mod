@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  web:
+    image: tndigitdocker/iot-fe-send:latest
+    container_name: iot-fe-send
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:80"
+
+
