@@ -1,4 +1,3 @@
-![Logo di OPV](Logo-OPV.png)
 
 # io-trentino - Proxy per la comunicazione con IO Italia e altre piattaforme
 

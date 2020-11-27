@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
         httpSecurity.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**", "**/favicon.ico").anonymous()
-                .antMatchers("/api/v1/servizio/**").permitAll()
+               // .antMatchers("/api/v1/servizio/**").permitAll()
                 .antMatchers("/api/v1/**").authenticated()
                 .antMatchers("/swagger-ui.html/**", "/actuator/**").permitAll()
                 .anyRequest().permitAll()
