@@ -6,37 +6,28 @@
       </button>
       <span>Middleware notifiche Io Italia</span>
   
-      <!--<span class="right-spacer"></span>
-      <app-navbar-year-selector *ngIf="userRoles != undefined"></app-navbar-year-selector>
+      <span class="right-spacer"></span>
       <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
-        <img class="logo-image" src={{userProfilePic}}>
-        <span *ngIf="anagrafica != undefined" fxHide.xs style="padding-left: 10px">{{anagrafica.nome}} {{anagrafica.cognome}}</span>
+        <!-- <img class="logo-image" src={{getProfilePic()}}> -->
+        <span fxHide.xs style="padding-left: 10px">{{getProfileName()}} - {{getProfileEmail()}}</span>
         <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #menu="matMenu" class="mat-typography">
         <mat-list role="list">
           <h3 mat-subheader>Utente</h3>
           <mat-list-item class="mat-body-2">
-            <img class="logo-image" src={{userProfilePic}}>
+            <!-- <img class="logo-image" src={{userProfilePic}}> -->
             <div style="padding-left: 10px" fxLayout="column">
-              <span *ngIf= "anagrafica != undefined">{{anagrafica.nome}} {{anagrafica.cognome}}</span>
-              <span>{{userEmailAddress}}</span>
+              <span>{{getProfileName()}}</span>
+              <span>{{getProfileEmail()}}</span>
             </div>
-          </mat-list-item>
-          <h3 mat-subheader *ngIf="onlyAppRoles != undefined && onlyAppRoles.size > 0">Ruoli</h3>
-          <mat-list-item class="mat-body-2" *ngFor="let role of onlyAppRoles">
-            <mat-icon>account_circle</mat-icon>
-            {{role | roleDescription}}
           </mat-list-item>
         </mat-list>
         <mat-divider></mat-divider>
-        <button mat-menu-item matTooltip="Informazioni sull'applicazione" (click)="createAboutDialog()">
-          <mat-icon>info</mat-icon>Informazioni
-        </button>
         <button fxLayout="row" fxLayoutAlign="start center" mat-menu-item matTooltip="Esegui il logout da OPV" (click)="logout()">
           <mat-icon>power_settings_new</mat-icon>Esci
         </button>
-      </mat-menu> -->
+      </mat-menu>
     </mat-toolbar>
 
     <mat-sidenav-container autosize class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

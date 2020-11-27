@@ -1,6 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Claims } from 'src/app/auth/claims.model';
 import { Url_paths } from 'src/app/util/contants';
 
 
@@ -28,6 +30,7 @@ export class NavbarComponent implements OnInit{
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private oauthService: OAuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 959px)');
     console.log(this.mobileQuery);
@@ -49,6 +52,24 @@ export class NavbarComponent implements OnInit{
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+
+  getProfileName(): string {
+    let claims: Claims = Object.assign(new Claims(), <Claims>this.oauthService.getIdentityClaims());
+    if (!claims) return null;
+    return claims.getName();
+  }
+
+
+  getProfileEmail(): string {
+    let claims: Claims = Object.assign(new Claims(), <Claims>this.oauthService.getIdentityClaims());
+    if (!claims) return null;
+    return claims.getEmail();
+  }
+
+  logout() {
+    this.oauthService.logOut();
   }
 
 

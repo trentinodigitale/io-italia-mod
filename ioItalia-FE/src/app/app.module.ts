@@ -4,9 +4,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './auth/login/login.component';
 import { ServizioFormComponent } from './entities/servizio/servizio-form/servizio-form.component';
 import { ServizioComponent } from './entities/servizio/servizio-list/servizio-list.component';
 import { ServizioService } from './entities/servizio/servizio.service';
@@ -32,7 +36,8 @@ import { YesNoDialogComponent } from './util/yes-no-dialog/yes-no-dialog.compone
     ServizioFormComponent,
     DialogComponent,
     FormComponent,
-    YesNoDialogComponent
+    YesNoDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,13 @@ import { YesNoDialogComponent } from './util/yes-no-dialog/yes-no-dialog.compone
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: [environment.serverUrl + 'api'],
+          sendAccessToken: true
+      } 
+    }) 
   ],
   providers: [
     ServizioService,
@@ -49,7 +60,8 @@ import { YesNoDialogComponent } from './util/yes-no-dialog/yes-no-dialog.compone
     {
       provide: ErrorHandler,
       useClass: IoTrentinoErrorHandler
-    }
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
