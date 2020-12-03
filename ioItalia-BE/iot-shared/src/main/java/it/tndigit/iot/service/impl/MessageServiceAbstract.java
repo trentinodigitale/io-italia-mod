@@ -2,6 +2,7 @@ package it.tndigit.iot.service.impl;
 
 import it.tndigit.iot.repository.NotificationRepository;
 import it.tndigit.iot.repository.ServizioRepository;
+import it.tndigit.iot.repository.UtenteAbilitatoRepository;
 import it.tndigit.iot.service.MessageServiceReceive;
 import it.tndigit.iot.service.mapper.MessageMapper;
 import it.tndigit.iot.service.mapper.NotificationMapper;
@@ -21,6 +22,8 @@ public abstract class MessageServiceAbstract implements MessageServiceReceive {
     @Autowired
     protected ServizioRepository servizioRepository;
 
+    @Autowired
+    protected UtenteAbilitatoRepository utenteAbilitatoRepository;
 
     @Autowired
     protected MessageMapper messageMapper;

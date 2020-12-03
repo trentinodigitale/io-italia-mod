@@ -1,7 +1,8 @@
-/iot-rec/target/
+*/iot-rec/target/
 /doc/
-/iot-send/target/
-/iot-shared/target/
+*/iot-send/target/
+*/iot-shared/target/
+*.iml
 
 # compiled output
 /dist

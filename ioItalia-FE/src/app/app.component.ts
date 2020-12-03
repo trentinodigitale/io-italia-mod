@@ -14,9 +14,9 @@ export class AppComponent {
 
   constructor(private oauthService: OAuthService) {
     this.configureImplicitFlowAuthentication();
-  } 
-  
-  
+  }
+
+
   private configureImplicitFlowAuthentication() {
     this.oauthService.configure(authConfig);
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();

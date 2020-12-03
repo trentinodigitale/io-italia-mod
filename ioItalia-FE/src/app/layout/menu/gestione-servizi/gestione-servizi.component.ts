@@ -1,8 +1,8 @@
-import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { Servizio, ServizioPaginato } from 'src/app/entities/servizio/servizio.model';
-import { ServizioService } from 'src/app/entities/servizio/servizio.service';
+import {HttpResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {Servizio, ServizioPaginato} from 'src/app/entities/servizio/servizio.model';
+import {ServizioService} from 'src/app/entities/servizio/servizio.service';
 
 @Component({
   selector: 'app-gestione-servizi',
@@ -11,7 +11,7 @@ import { ServizioService } from 'src/app/entities/servizio/servizio.service';
 })
 export class GestioneServiziComponent implements OnInit {
 
-  servizi: Servizio[]
+  servizi: Servizio[];
   servizio: Servizio;
 
   pageSize: number;
@@ -20,7 +20,8 @@ export class GestioneServiziComponent implements OnInit {
 
   constructor(
     private servizioService: ServizioService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.pageSize = 10;
@@ -29,18 +30,16 @@ export class GestioneServiziComponent implements OnInit {
   }
 
   onSelection(event: Servizio) {
-    console.log("selection " + event.codiceFiscale)
+    console.log('selection ' + event.codiceFiscale);
     this.servizio = event;
   }
 
   loadAll() {
-
-    this.servizioService.getServizi(this.pageNo, this.pageSize, undefined).subscribe(
+       this.servizioService.getServizi(this.pageNo, this.pageSize, undefined).subscribe(
       (res: HttpResponse<ServizioPaginato[]>) => {
-        let serviziPaginati = Object.assign(res.body);
+        const serviziPaginati = Object.assign(res.body);
         this.servizi = serviziPaginati.servizioDTOs;
         this.totalItems = serviziPaginati.totalItems;
-
         this.servizio = undefined;
       }
     );
@@ -49,7 +48,7 @@ export class GestioneServiziComponent implements OnInit {
   onPageUpdate(event: PageEvent) {
     this.pageNo = event.pageIndex;
     this.pageSize = event.pageSize;
-    console.log("event " + this.pageNo);
+    console.log('event ' + this.pageNo);
     this.loadAll();
   }
 

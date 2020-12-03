@@ -20,7 +20,7 @@ export class ServizioService {
   }
 
   getServizi(pageNo: number, pageSize: number, sortBy: string): Observable<HttpResponse<ServizioPaginato[]>> {
-    
+
     let param = new HttpParams();
 
     if (pageNo != null) {
@@ -32,17 +32,17 @@ export class ServizioService {
     if (sortBy != null) {
         param = param.append('sortBy', sortBy);
     }
-    
+
     return this.http.get<ServizioPaginato[]>(this.resourceUrl + '/find', { observe: 'response', params: param });
   }
 
   update(servizio: Servizio): Observable<HttpResponse<Servizio>> {
-    console.log("update");
+    console.log('update');
     return this.http.put<Servizio>(this.resourceUrl, servizio, { observe: 'response' });
   }
 
   create(servizio: Servizio): Observable<HttpResponse<Servizio>> {
-    console.log("create");
+    console.log('create');
     return this.http.post<Servizio>(this.resourceUrl, servizio, { observe: 'response' });
   }
 

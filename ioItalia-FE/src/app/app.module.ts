@@ -51,8 +51,8 @@ import { YesNoDialogComponent } from './util/yes-no-dialog/yes-no-dialog.compone
       resourceServer: {
           allowedUrls: [environment.serverUrl + 'api'],
           sendAccessToken: true
-      } 
-    }) 
+      }
+    })
   ],
   providers: [
     ServizioService,

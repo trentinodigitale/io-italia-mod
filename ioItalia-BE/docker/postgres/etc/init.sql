@@ -27,6 +27,19 @@ CREATE TABLE suiot01.iottservizio (
                                       CONSTRAINT uk_fa7eowcwm345gasvlan1st4xj UNIQUE (email_pec),
                                       CONSTRAINT uk_sn9y1ketdgp0r972485xolrxt UNIQUE ("token"));
 
+CREATE  TABLE suiot01.iottutenteabilitato(
+                                      id_obj int8 NOT NULL,
+                                      datainserimento timestamp NULL,
+                                      datamodifica timestamp NULL,
+                                      utenteinserimento varchar(100) NOT NULL,
+                                      utentemodifica varchar(100) NULL,
+                                      "version" int4 NOT NULL,
+                                      cod_identificativo varchar(255) NOT NULL,
+                                      email varchar(255) NOT NULL,
+                                      CONSTRAINT iottutenteabilitato_pkey PRIMARY KEY (id_obj),
+                                      CONSTRAINT uk_codid UNIQUE (cod_identificativo),
+                                      CONSTRAINT uk_email UNIQUE (email));
+
 INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinserimento,utentemodifica,"version",codicefiscale,cod_identificativo,codice_servizio_ioitalia,email,email_pec,nome_dipartimento,nome_ente,nome_servizio,"token") VALUES
 (nextval('suiot01.nxtnbr'),'2020-06-05 15:06:16.690','2020-06-05 15:06:16.690','anonymousUser','anonymousUser',0,'00355870221','1075ba81-aabb-45d1-98b7-11d442378693','01DQFBC7CNN6A68HFS91Q3DFW6','servizio.innovazionedigitale@pec.comune.trento.it','servizio.innovazionedigitale@pec.comune.trento.it','INNOVAZIONE E SERVIZI DIGITALI','Comune di Trento','Cartella del Cittadino','408bfcd96a5442d3a4b6b1d44a5eae97');
 
@@ -41,3 +54,6 @@ INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinse
 
 INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinserimento,utentemodifica,"version",codicefiscale,cod_identificativo,codice_servizio_ioitalia,email,email_pec,nome_dipartimento,nome_ente,nome_servizio,"token")
 VALUES (nextval('suiot01.nxtnbr'),'2020-11-18 14:25:55.797','2020-11-18 14:25:55.797','anonymousUser','anonymousUser',0,'00990320228','632817c2-8848-4aea-9555-e8206b956ca3','1EQDTQR3C32KJAJ29GJTAEV4F','td440@tndigit.it','td440@tndigit.it','Innovazione','Trentino Digitale S.p.A.','IO-Trentino-Backend','358ab7841f85486cac455e0fb663d9a6');
+
+INSERT INTO suiot01.iottutenteabilitato(id_obj, datainserimento, datamodifica, utenteinserimento, utentemodifica, version, cod_identificativo, email)
+VALUES (nextval('suiot01.nxtnbr'),'2020-11-18 14:25:55.797','2020-11-18 14:25:55.797','anonymousUser','anonymousUser',0,'632817c2-8848-4aea-9555-e8206b956ca3','claudio.santorum@tndigit.it');

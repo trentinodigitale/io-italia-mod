@@ -119,10 +119,12 @@ logging:
 
 application:
   io-app:
+    codidclientid: 632817c2-8848-4aea-9555-e8206b956ca3
     rabbitmq:
       exchange: ioapp.exchange
       queue: ioapp.queue
       routingkey: ioapp.routingkey
+
 
 
 management:
