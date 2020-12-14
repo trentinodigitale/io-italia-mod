@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
         httpSecurity.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**", "**/favicon.ico").anonymous()
-                .antMatchers("/api/v1/servizio/**").authenticated()//hasAnyAuthority("openid profile email")
-                .antMatchers("/api/v1/message/**").authenticated()
+                .antMatchers("/api/v1/**").authenticated()
+                //.antMatchers("/api/v1/message/**").authenticated()
                 .antMatchers("/swagger-ui.html/**", "/actuator/**").permitAll()
                 .anyRequest().permitAll()
                 .and()

@@ -1,13 +1,15 @@
 <div class="bg" fxLayoutAlign="center center">
-    <div class="box detail" fxFlex="350px" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
+  <div class="box detail" fxFlex="350px" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
 
-        <h1 class="mat-h1">Benvenuto in IoTrentino</h1>
+    <h1 class="mat-h1">Benvenuto in IoTrentino</h1>
 
-        <button mat-raised-button (click)="login()" color="primary">Google Login</button>
+    <button mat-raised-button (click)="login()" color="primary">Google Login</button>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign=" end" fxLayoutGap="30px">
-            <img height="50px" src="../../../assets/image/io-it-logo-blue.svg" />
-            <img height="50px" src="../../../assets/image/telegram.png" />
-        </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign=" end" fxLayoutGap="30px">
+      <!-- <img height="50px" src="../../../assets/image/io-it-logo-blue.svg" />
+       <img height="50px" src="../../../assets/image/telegram.png" />-->
+      <img height="50px" [src]="iotlogo">
+      <img height="50px" [src]="tellogo">
     </div>
+  </div>
 </div>

@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  //serverUrl: 'https://iotrentino.smartcommunitylab.it/',
   serverUrl: 'http://localhost:8281/',
-  //authenticationUrl: 'https://opv-test.tndigit.it/auth/',
   angularUrl: 'http://localhost:4200/'
 };
 
