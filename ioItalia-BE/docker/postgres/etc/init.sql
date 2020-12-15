@@ -37,7 +37,6 @@ CREATE  TABLE suiot01.iottutenteabilitato(
                                       cod_identificativo varchar(255) NOT NULL,
                                       email varchar(255) NOT NULL,
                                       CONSTRAINT iottutenteabilitato_pkey PRIMARY KEY (id_obj),
-                                      CONSTRAINT uk_codid UNIQUE (cod_identificativo),
                                       CONSTRAINT uk_email UNIQUE (email));
 
 INSERT INTO suiot01.iottservizio (id_obj,datainserimento,datamodifica,utenteinserimento,utentemodifica,"version",codicefiscale,cod_identificativo,codice_servizio_ioitalia,email,email_pec,nome_dipartimento,nome_ente,nome_servizio,"token") VALUES
