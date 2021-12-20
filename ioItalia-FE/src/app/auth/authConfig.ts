@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 
 export const authConfig: AuthConfig = {
     // Url of the Identity Provider
-    issuer: 'https://aac.platform.smartcommunitylab.it/aac',
+    issuer: 'https://aac.platform.smartcommunitylab.it',
 
     // URL of the SPA to redirect the user to after login
     redirectUri: environment.angularUrl,

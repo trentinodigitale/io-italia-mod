@@ -76,8 +76,8 @@ spring:
       resourceserver:
         id: ${RESOURCESERVER_ID:iotrentino}
         jwt:
-          issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it/aac}
-          jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/aac/jwk}
+          issuer-uri: ${OAUTH2_ISSUER_URI:https://aac.platform.smartcommunitylab.it}
+          jwk-set-uri: ${OAUTH2_JWK_URI:https://aac.platform.smartcommunitylab.it/jwk}
 
   datasource:
     platform: postgresql

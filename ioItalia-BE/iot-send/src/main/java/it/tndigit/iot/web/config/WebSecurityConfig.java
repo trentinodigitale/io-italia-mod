@@ -26,9 +26,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -115,9 +113,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     && !token.getClaimAsStringList(JwtClaimNames.AUD).contains("632817c2-8848-4aea-9555-e8206b956ca3")) {
     			return OAuth2TokenValidatorResult.failure(audienceError);
     		}*/
-
+            List<String> scopes = token.getClaimAsStringList("scope");
+            scopes = scopes == null ? Collections.emptyList() : scopes;
+            log.info("scopes " + scopes);
             //caso token per messaggi
-            if (token.getClaimAsStringList(JwtClaimNames.AUD).contains(resourceId)) {
+            if (scopes.stream().anyMatch(x -> x.contains("iotrentino.sender"))) {
                 log.info("Check per messaggi");
                 // client ID as of OAuth2.0
                 String clientId = token.getSubject();
@@ -134,7 +134,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             if (token.getClaimAsStringList(JwtClaimNames.AUD).contains(codIdClientId)) {
                 log.info("Check per servizi");
                 // client ID as of OAuth2.0
-                String clientId = token.getAudience().get(0);
+                String clientId = codIdClientId;
+                        //token.getAudience().get(0);
                 log.info("claims AUD:" + clientId);
 
                 // check it.tndigit.iot.service is present
@@ -146,7 +147,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 }
 
                 //checkusermail
-                String email = token.getClaim("user_name");
+                String email = token.getClaim("preferred_username");
                 log.info("claims user_name:" + email);
 
                 // check utente per iotservice is present
